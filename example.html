@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js"></script>
+	<script src="./flame.js"></script>
+</head>
+<body>
+	<h3>
+		Flame chart example
+	</h3>
+	<div id="flamegraph" data-root="<%= d3_tree(@report.call_graph).to_json %>">
+	</div>
+	<h5 id="label"></h5>
+	<script>
+	var data = {
+		name: '#toplevel', 
+		size: 100, 
+		children: [
+			{name: 'level 1.1', size: 35, children: [
+				{name: 'level 2.1', size: 10, children: [
+					{name: '3.1', size: 5}
+				]}, {name: 'level 2.1', size: 20}
+			]}, 
+			{name: 'level 1.2', size: 65, children: [
+				{name: 'level 2.2', size: 1}, {name: 'level 2.3', size: 23, children: [
+					{name: '3.1', size: 5}
+				]}, {name: 'level 2.4', size: 10}
+			]}
+		]
+	};
+	var width = $(window).width() * 0.95;
+	var height = $(window).height() * 0.8;
+	flamegraph('#flamegraph', width, height, data, $('#label'))
+	</script>
+</body>
+</html>
